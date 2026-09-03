@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SAVE FILES</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&family=Playfair+Display:wght@400;500;600&family=Shippori+Mincho:wght@400;500;600&family=Space+Mono:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neodgm/neodgm-webfont@1.601/neodgm/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquareNeo@1.0/nanumsquareneo.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <main class="app">
+
+    <div class="workspace">
+
+    <!-- =========================
+         결과물 미리보기
+    ========================== -->
+    <div class="preview-wrapper">
+   
+    <section class="preview">
+
+      <div class="save-card" id="saveCard">
+
+        <header class="save-header">
+          <h1>
+            <span id="pairNamePreview">페어명</span> SAVE FILES
+          </h1>
+        </header>
+
+
+        <!-- 선택된 세이브 -->
+        <section class="main-save">
+
+          <div class="main-image">
+            <span>4:3 가로 사진</span>
+          </div>
+
+          <div class="main-info">
+
+            <div class="main-text">
+
+              <div
+                class="save-number"
+                id="mainSaveNumber"
+              >
+                SAVE 03
+              </div>
+
+              <div
+                class="save-name"
+                id="mainSaveName"
+              >
+                세이브 명
+              </div>
+
+              <div class="save-date">
+                DATE
+                <span id="mainSaveDate">
+                  xxxx.xx.xx
+                </span>
+              </div>
+
+            </div>
+
+
+            <div class="main-side">
+
+              <div
+                class="play-time"
+                id="mainPlayTime"
+              >
+                nn:nn:nn
+              </div>
+
+              <button
+                type="button"
+                class="load-button"
+              >
+                LOAD!
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <div class="divider"></div>
+
+
+        <!-- 세이브 슬롯 -->
+        <section
+          class="save-list"
+          id="saveList"
+        >
+
+          <article
+            class="save-slot"
+            data-save="1"
+          >
+
+            <div class="slot-image-area">
+  <div class="slot-image">1:1</div>
+  <div class="slot-credit"></div>
+</div>
+            <div class="slot-info">
+
+              <div class="slot-number">
+                SAVE 01
+              </div>
+
+              <div class="slot-name">
+                세이브 명
+              </div>
+
+              <div class="slot-meta">
+                <span class="slot-date">
+                  DATE xxxx.xx.xx
+                </span>
+
+                <span class="slot-time">
+                  nn:nn:nn
+                </span>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article
+            class="save-slot"
+            data-save="2"
+          >
+
+            <div class="slot-image-area">
+  <div class="slot-image">1:1</div>
+  <div class="slot-credit"></div>
+</div>
+
+            <div class="slot-info">
+
+              <div class="slot-number">
+                SAVE 02
+              </div>
+
+              <div class="slot-name">
+                세이브 명
+              </div>
+
+              <div class="slot-meta">
+                <span class="slot-date">
+                  DATE xxxx.xx.xx
+                </span>
+
+                <span class="slot-time">
+                  nn:nn:nn
+                </span>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article
+            class="save-slot selected"
+            data-save="3"
+          >
+
+            <div class="slot-image-area">
+  <div class="slot-image">1:1</div>
+  <div class="slot-credit"></div>
+</div>
+
+            <div class="slot-info">
+
+              <div class="slot-number">
+                SAVE 03
+              </div>
+
+              <div class="slot-name">
+                세이브 명
+              </div>
+
+              <div class="slot-meta">
+                <span class="slot-date">
+                  DATE xxxx.xx.xx
+                </span>
+
+                <span class="slot-time">
+                  nn:nn:nn
+                </span>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article
+            class="save-slot"
+            data-save="4"
+          >
+
+            <div class="slot-image-area">
+  <div class="slot-image">1:1</div>
+  <div class="slot-credit"></div>
+</div>
+
+            <div class="slot-info">
+
+              <div class="slot-number">
+                SAVE 04
+              </div>
+
+              <div class="slot-name">
+                세이브 명
+              </div>
+
+              <div class="slot-meta">
+                <span class="slot-date">
+                  DATE xxxx.xx.xx
+                </span>
+
+                <span class="slot-time">
+                  nn:nn:nn
+                </span>
+              </div>
+
+            </div>
+
+          </article>
+
+        </section>
+
+      </div>
+
+    </section>
+
+    </div>
+
+
+
+    <!-- =========================
+         편집 패널
+    ========================== -->
+    <section class="editor-panel">
+
+      <h2>EDIT SAVE FILES</h2>
+
+
+      <!-- 페어명 -->
+      <div class="editor-group">
+
+        <label for="pairName">
+          페어명
+        </label>
+
+        <input
+          type="text"
+          id="pairName"
+          placeholder="페어명"
+          maxlength="30"
+        >
+
+        <div class="color-grid">
+
+  <div class="color-item">
+    <label for="backgroundColor">배경색</label>
+
+    <div class="color-control">
+      <input
+        type="color"
+        id="backgroundColor"
+        value="#f7f7f7"
+      >
+
+      <input
+        type="text"
+        id="backgroundHex"
+        value="#f7f7f7"
+        maxlength="7"
+      >
+    </div>
+
+   <div class="editor-group font-group">
+  <label for="fontSelect">폰트</label>
+
+  <select id="fontSelect">
+
+    <optgroup label="한국어">
+      <option value="Pretendard">Pretendard</option>
+      <option value="Noto Sans KR">Noto Sans KR</option>
+      <option value="NanumSquareNeo">나눔스퀘어 Neo</option>
+      <option value="NanumGothic">나눔고딕</option>
+      <option value="Gowun Batang">고운바탕</option>
+    </optgroup>
+
+    <optgroup label="픽셀">
+      <option value="Galmuri11">Galmuri</option>
+      <option value="NeoDunggeunmo">Neo둥근모</option>
+    </optgroup>
+
+    <optgroup label="일본어">
+      <option value="Noto Sans JP">Noto Sans JP</option>
+      <option value="Zen Kaku Gothic New">Zen Kaku Gothic New</option>
+      <option value="Shippori Mincho">Shippori Mincho</option>
+    </optgroup>
+
+    <optgroup label="영어">
+      <option value="Inter">Inter</option>
+      <option value="Montserrat">Montserrat</option>
+      <option value="Playfair Display">Playfair Display</option>
+      <option value="Space Mono">Space Mono</option>
+    </optgroup>
+
+  </select>
+
+</div>
+
+  </div>
+
+
+  <div class="color-item">
+    <label for="textColor">글자색</label>
+
+    <div class="color-control">
+      <input
+        type="color"
+        id="textColor"
+        value="#111111"
+      >
+
+      <input
+        type="text"
+        id="textHex"
+        value="#111111"
+        maxlength="7"
+      >
+    </div>
+  </div>
+
+
+  <div class="color-item">
+    <label for="highlightColor">세이브 색</label>
+
+    <div class="color-control">
+      <input
+  type="color"
+  id="highlightColor"
+  value="#e2e2e2"
+>
+
+<input
+  type="text"
+  id="highlightHex"
+  value="#e2e2e2"
+  maxlength="7"
+>
+    </div>
+  </div>
+
+</div>
+
+      </div>
+
+
+      <!-- 선택 세이브 -->
+      <div class="editor-group">
+
+        <label>
+          메인 SAVE
+        </label>
+
+        <div class="save-selector">
+
+          <button
+            type="button"
+            data-select-save="1"
+          >
+            01
+          </button>
+
+          <button
+            type="button"
+            data-select-save="2"
+          >
+            02
+          </button>
+
+          <button
+            type="button"
+            data-select-save="3"
+            class="active"
+          >
+            03
+          </button>
+
+          <button
+            type="button"
+            data-select-save="4"
+          >
+            04
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- SAVE 편집 -->
+      <div class="editor-group">
+
+        <h3 id="editingTitle">
+          SAVE 03
+        </h3>
+<label for="saveImage">
+  사진
+</label>
+
+<input
+  type="file"
+  id="saveImage"
+  accept="image/*"
+>
+
+<div class="position-grid">
+
+  <div class="position-item">
+    <label for="imageX">사진 가로 위치</label>
+
+    <input
+      type="range"
+      id="imageX"
+      min="0"
+      max="100"
+      value="50"
+    >
+  </div>
+
+  <div class="position-item">
+    <label for="imageY">사진 세로 위치</label>
+
+    <input
+      type="range"
+      id="imageY"
+      min="0"
+      max="100"
+      value="50"
+    >
+  </div>
+
+</div>
+
+<label for="imageZoom">사진 확대</label>
+<input
+  type="range"
+  id="imageZoom"
+  min="1"
+  max="3"
+  step="0.05"
+  value="1"
+>
+
+        <div class="save-info-grid">
+
+  <div class="save-info-item">
+    <label for="saveName">세이브 명</label>
+
+    <input
+      type="text"
+      id="saveName"
+      placeholder="세이브 명"
+      maxlength="40"
+    >
+  </div>
+
+  <div class="save-info-item">
+    <label for="saveDate">DATE</label>
+
+    <input
+      type="text"
+      id="saveDate"
+      placeholder="xxxx.xx.xx"
+      maxlength="20"
+    >
+  </div>
+
+  <div class="save-info-item">
+    <label for="saveTime">PLAY TIME</label>
+
+    <input
+      type="text"
+      id="saveTime"
+      placeholder="nn:nn:nn"
+      maxlength="20"
+    >
+  </div>
+
+  <div class="save-info-item">
+    <label for="saveCredit">커미션 출처</label>
+
+    <input
+      type="text"
+      id="saveCredit"
+      placeholder="커미션 출처"
+    >
+  </div>
+
+</div>
+
+      </div>
+
+          <button type="button" id="downloadButton">
+  PNG 저장
+</button>
+
+    </section>
+
+    </div>
+
+  </main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.13/html-to-image.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
