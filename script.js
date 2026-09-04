@@ -549,22 +549,46 @@ textHexInput.addEventListener("input", () => {
 });
 
 downloadButton.addEventListener("click", async () => {
-  await document.fonts.ready;
+  if (downloadButton.disabled) return;
 
-  const dataUrl = await htmlToImage.toPng(saveCard, {
-  pixelRatio: 1,
-  cacheBust: false
-});
+  downloadButton.disabled = true;
+  const originalText = downloadButton.textContent;
+  downloadButton.textContent = "저장 중...";
 
-  const pairName =
-    pairNameInput.value.trim() || "PAIR";
+  try {
+    const dataUrl = await htmlToImage.toPng(saveCard, {
+      pixelRatio: 1,
+      cacheBust: false,
+      skipFonts: true
+    });
 
-  const link = document.createElement("a");
+    const blob = await fetch(dataUrl).then(response => response.blob());
 
-  link.download = `${pairName}_SAVE-FILES.png`;
-  link.href = dataUrl;
+    const url = URL.createObjectURL(blob);
 
-  link.click();
+    const pairName =
+      pairNameInput.value.trim() || "PAIR";
+
+    const link = document.createElement("a");
+    link.download = `${pairName}_SAVE-FILES.png`;
+    link.href = url;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+    }, 1000);
+
+  } catch (error) {
+    console.error("PNG 저장 실패:", error);
+    alert("PNG 저장에 실패했습니다.");
+
+  } finally {
+    downloadButton.disabled = false;
+    downloadButton.textContent = originalText;
+  }
 });
 
 /* =========================
