@@ -405,28 +405,53 @@ saveImageInput.addEventListener("change", () => {
 
 });
 
+function updateSelectedImageStyle() {
+  const save = saves[selectedSave - 1];
+
+  const mainImg = mainImage.querySelector("img");
+
+  if (mainImg) {
+    mainImg.style.objectPosition =
+      `${save.imageX}% ${save.imageY}%`;
+
+    mainImg.style.transform =
+      `scale(${save.imageZoom})`;
+  }
+
+  const selectedSlot =
+    saveSlots[selectedSave - 1];
+
+  const slotImg =
+    selectedSlot.querySelector(".slot-image img");
+
+  if (slotImg) {
+    slotImg.style.objectPosition =
+      `${save.imageX}% ${save.imageY}%`;
+
+    slotImg.style.transform =
+      `scale(${save.imageZoom})`;
+  }
+}
+
 imageXInput.addEventListener("input", () => {
   saves[selectedSave - 1].imageX =
     Number(imageXInput.value);
 
-  updateSlots();
-  updateMainSave();
+  updateSelectedImageStyle();
 });
 
 imageYInput.addEventListener("input", () => {
   saves[selectedSave - 1].imageY =
     Number(imageYInput.value);
 
-  updateSlots();
-  updateMainSave();
+  updateSelectedImageStyle();
 });
 
 imageZoomInput.addEventListener("input", () => {
   saves[selectedSave - 1].imageZoom =
     Number(imageZoomInput.value);
 
-  updateSlots();
-  updateMainSave();
+  updateSelectedImageStyle();
 });
 
 backgroundColorInput.addEventListener("input", () => {
