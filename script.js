@@ -549,46 +549,59 @@ textHexInput.addEventListener("input", () => {
 });
 
 downloadButton.addEventListener("click", async () => {
-  if (downloadButton.disabled) return;
 
   downloadButton.disabled = true;
   const originalText = downloadButton.textContent;
   downloadButton.textContent = "저장 중...";
 
   try {
+
+    const selectedFont = fontSelect.value;
+    const fontFamily = fontMap[selectedFont] || '"Noto Sans KR", sans-serif';
+
+    await loadFont(selectedFont);
+
+    try {
+      await Promise.all([
+        document.fonts.load(`400 16px ${fontFamily}`),
+        document.fonts.load(`500 16px ${fontFamily}`),
+        document.fonts.load(`600 16px ${fontFamily}`),
+        document.fonts.load(`700 16px ${fontFamily}`),
+      ]);
+    } catch (e) {
+      console.warn("font load 실패:", e);
+    }
+
+    await document.fonts.ready;
+    await new Promise(requestAnimationFrame);
+
     const dataUrl = await htmlToImage.toPng(saveCard, {
       pixelRatio: 1,
-      cacheBust: false,
-      skipFonts: true
+      cacheBust: false
     });
-
-    const blob = await fetch(dataUrl).then(response => response.blob());
-
-    const url = URL.createObjectURL(blob);
 
     const pairName =
       pairNameInput.value.trim() || "PAIR";
 
     const link = document.createElement("a");
+
     link.download = `${pairName}_SAVE-FILES.png`;
-    link.href = url;
+    link.href = dataUrl;
 
-    document.body.appendChild(link);
     link.click();
-    link.remove();
-
-    setTimeout(() => {
-      URL.revokeObjectURL(url);
-    }, 1000);
 
   } catch (error) {
-    console.error("PNG 저장 실패:", error);
-    alert("PNG 저장에 실패했습니다.");
+
+    console.error("저장 실패:", error);
+    alert("저장에 실패했어요. 콘솔(F12)에서 오류 내용을 확인해주세요.");
 
   } finally {
+
     downloadButton.disabled = false;
     downloadButton.textContent = originalText;
+
   }
+
 });
 
 /* =========================
@@ -643,8 +656,87 @@ const fontMap = {
     '"Space Mono", monospace'
 };
 
-fontSelect.addEventListener("change", () => {
+const fontUrlMap = {
+  Pretendard:
+    "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css",
+  "Noto Sans KR":
+    "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600&display=swap",
+  NanumSquareNeo:
+    "https://cdn.jsdelivr.net/gh/moonspam/NanumSquareNeo@1.0/nanumsquareneo.css",
+  NanumGothic:
+    "https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap",
+  "Gowun Batang":
+    "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap",
+  Galmuri11:
+    "https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css",
+  NeoDunggeunmo:
+    "https://cdn.jsdelivr.net/gh/neodgm/neodgm-webfont@1.601/neodgm/style.css",
+  "Noto Sans JP":
+    "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600&display=swap",
+  "Zen Kaku Gothic New":
+    "https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap",
+  "Shippori Mincho":
+    "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&display=swap",
+  Inter:
+    "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
+  Montserrat:
+    "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap",
+  "Playfair Display":
+    "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap",
+  "Space Mono":
+    "https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+};
+
+function loadFont(fontKey) {
+  return new Promise((resolve) => {
+
+    const url = fontUrlMap[fontKey];
+
+    if (!url) {
+      resolve();
+      return;
+    }
+
+    let link = document.getElementById("fontStylesheet");
+
+    if (!link) {
+      link = document.createElement("link");
+      link.id = "fontStylesheet";
+      link.rel = "stylesheet";
+      document.head.appendChild(link);
+    }
+
+    // 이미 같은 폰트가 로드되어 있으면 다시 요청하지 않고 바로 넘어감
+    if (link.href === url) {
+      resolve();
+      return;
+    }
+
+    let done = false;
+
+    const finish = () => {
+      if (done) return;
+      done = true;
+      clearTimeout(timer);
+      resolve();
+    };
+
+    // 5초 안에 응답이 없으면 그냥 넘어감
+    const timer = setTimeout(finish, 5000);
+
+    link.crossOrigin = "anonymous";
+    link.onload = finish;
+    link.onerror = finish;
+    link.href = url;
+
+  });
+}
+
+fontSelect.addEventListener("change", async () => {
+
   const selectedFont = fontSelect.value;
+
+  await loadFont(selectedFont);
 
   saveCard.style.fontFamily =
     fontMap[selectedFont] || '"Noto Sans KR", sans-serif';
